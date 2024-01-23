@@ -9,12 +9,14 @@ import Subscribed from "./pages/dashboard/Subscribed";
 import Analytics from "./pages/dashboard/Analytics";
 // import YourVideos from "./pages/dashboard/YourVideos";
 import YourVideos from "./pages/dashboard/YourVideos";
+import Videopage from "./pages/Videopage";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/video/" element={<Videopage/>} />
           {/* <Route path="/searchVideo" element={<SearchVideo />} />
           <Route path="/video" element={<Video />} />
           <Route path="/userprofile" element={<UserProfile />} />

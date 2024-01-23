@@ -5,6 +5,7 @@ import React from "react";
 
 
 const Card = ({ cardInfo }) => {
+  console.log(cardInfo.imageSource)
   return (
     <div className="my-4 w-full max-h-[27rem] bg-slate-200 rounded-xl p-4 shadow-2xl duration-300 hover:scale-105">
       <img src={cardInfo.imageSource} alt="" className="mx-auto w-full max-h-[20rem]" />

@@ -30,7 +30,7 @@ import BiscuitFactory from "../../../../hardhat/artifacts/contracts/Biscuits.sol
    },
  };
 const Navbar = () => {
-   const address = useSelector((state) => state.user.userAddress);
+  const address = useSelector((state) => state.user.userAddress);
   const balance = useSelector((state) => state.user.balance);
   console.log(balance)
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const Navbar = () => {
             console.log(signer)
             dispatch(setContract(contract));
             // dispatch(setSigner(signer));
-            setNav(true)
+            //setNav(true)
            } else {
              navigate("/");
            }

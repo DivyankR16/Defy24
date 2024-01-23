@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from './Cards';
+import Card from './Card';
 import ScrollableFeed from 'react-scrollable-feed'
 import SingleUserImage from "../../assets/single_user.png"
 import PartnershipImage from "../../assets/partnership.png";

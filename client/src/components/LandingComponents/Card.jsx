@@ -1,9 +1,4 @@
 import React from "react";
-
-
-
-
-
 const Card = ({ cardInfo }) => {
   console.log(cardInfo.imageSource)
   return (
@@ -26,14 +21,6 @@ const Card = ({ cardInfo }) => {
         <TextButton text="Start trial" type="secondary" />
       </div> */}
     </div>
-  );
-};
-
-const Cards = () => {
-  
-
-  return (
-    <></>
   );
 };
 

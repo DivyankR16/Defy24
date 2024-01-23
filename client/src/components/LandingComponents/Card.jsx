@@ -3,7 +3,7 @@ const Card = ({ cardInfo }) => {
   console.log(cardInfo.imageSource)
   return (
     <div className="my-4 w-full max-h-[27rem] bg-slate-200 rounded-xl p-4 shadow-2xl duration-300 hover:scale-105">
-      <img src={cardInfo.imageSource} alt="" className="mx-auto w-full max-h-[20rem]" />
+      <img src={cardInfo.imageSource} alt="" className="mx-auto w-full h-[10rem]" />
       <div className="flex justify-between items-center">
          <p className="py-2 text-center text-4xl font-bold">{cardInfo.title}</p>
          <p className="text-center text-4xl font-bold">{cardInfo.price}</p>

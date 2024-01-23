@@ -5,7 +5,7 @@ import Profile from "./pages/dashboard/Profile";
 import Home from "./pages/dashboard/Home";
 
 import UploadVideo from "./pages/dashboard/UploadVideo";
-import Subsribed from "./pages/dashboard/Subsribed";
+import Subscribed from "./pages/dashboard/Subscribed";
 import Analytics from "./pages/dashboard/Analytics";
 // import YourVideos from "./pages/dashboard/YourVideos";
 import YourVideos from "./pages/dashboard/YourVideos";
@@ -31,7 +31,7 @@ function App() {
             <Route path="/dashboard/yourvideos" element={<YourVideos />} />
             <Route path="/dashboard/profile" element={<Profile />} />
             <Route path="/dashboard/uploadvideo" element={<UploadVideo />} />
-            <Route path="/dashboard/subscribed" element={<Subsribed />} />
+            <Route path="/dashboard/subscribed" element={<Subscribed />} />
             <Route path="/dashboard/analytics" element={<Analytics />} />
           </Route>
         </Routes>

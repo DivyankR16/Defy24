@@ -90,7 +90,10 @@ const Navbar = () => {
   // const [ConnectWallet,setConnectWallet]=useState(true);
   return (
     <div className="mx-auto flex h-24 max-w-screen-xl items-center justify-between px-4 text-white">
-      <ReactLogo type="spin" size={48} />
+      <Link to='/'>
+        {" "}
+        <ReactLogo type="spin" size={48} />
+      </Link>
       <div className="hidden md:flex items-center">
         <Link className="header-link mx-4">Home</Link>
         <Link className="header-link mx-4">About Us</Link>
@@ -104,11 +107,13 @@ const Navbar = () => {
           </button>
         ) : (
           <>
-            <Link className="header-link mx-4">Dashboard</Link>
+            <Link to="/dashboard/home" className="header-link mx-4">
+              Dashboard
+            </Link>
             <p className="text-gray-900 font-semibold  bg-slate-300 px-6 py-2 rounded-full">
-              Address: <span>{address.slice(0,6)}</span>{" "}
+              Address: <span>{address.slice(0, 6)}</span>{" "}
               <span className="font-extrabold text-2xl">&nbsp;&nbsp;||</span>
-              &nbsp;&nbsp; {balance.slice(0,4)} Matic
+              &nbsp;&nbsp; {balance.slice(0, 4)} Matic
             </p>
           </>
         )}
@@ -143,7 +148,7 @@ const Navbar = () => {
             <>
               <Link className="header-link mx-4 block my-2">Dashboard</Link>
               <p className="text-gray-900 font-semibold  bg-slate-300 px-6 py-2 rounded-full">
-                Address: <span>{address.slice(0,6)}</span>{" "}
+                Address: <span>{address.slice(0, 6)}</span>{" "}
                 <span className="font-extrabold text-2xl">&nbsp;&nbsp;||</span>
                 &nbsp;&nbsp; {balance.slice(0, 4)} Matic
               </p>

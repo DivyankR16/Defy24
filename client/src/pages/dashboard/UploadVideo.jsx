@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import axios from 'axios'
-import FormData from 'form-data'
-import fs from 'fs'
+import {  useSelector } from "react-redux";
+var urli = ""
+var urlv=""
 const UploadVideo = () => {
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
   const [description, setDescription] = useState("");
-  const [urlv, setUrlv] = useState("");
-  const [urli, setUrli] = useState("");
   const [categories, setCategories] = useState([
     false,
     false,
@@ -16,6 +15,8 @@ const UploadVideo = () => {
     false,
     false,
   ]);
+  const contract = useSelector((state) => state.user.contractInstance)
+  console.log(contract)
   const updateValueAtIndex = (index, newValue) => {
     // Creating a copy of the array using spread (...) operator
     const newArray = [...categories];
@@ -25,59 +26,110 @@ const UploadVideo = () => {
 
     // Updating the state with the new array
     setCategories(newArray);
-  };
-  const handleSubmit = async (e) => {
-    //e.preventDefault()
-    console.log("HANDLE SUBIT")
-    // console.log(uploadRes);
-    var data = new FormData()
-    data.append('files', fs.createReadStream(urli))
-    var config = {
-      method: "post",
-      url: "https://api.krypcore.com/api/v0/storagemanageripfs/storefile",
-      headers: {
-        Authorization: "3fc1ff34-12d1-4484-9b53-171420d24c9a",
-        Instanceid: "INS_NC_172_2024122",
-        ...data.getHeaders(),
-      },
-      data: data,
-    };
-    // uploadRes = await lighthouse.upload(
-    //   urlv,
-    //   "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
-    // );
-    // uploadResthumb = await lighthouse.upload(
-    //   urli,
-    //   "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
-    // );
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    // console.log(uploadRes);
-    // console.log(uploadResthumb);
-    //
-    // console.log(uploadResthumb);
-    // setTimeout(async () => {
-    //   const gas = await contract.uploadVideo(
-    //     uploadRes.data.Hash,
-    //     uploadResthumb.data.Hash,
-    //     duration,
-    //     title,
-    //     description,
-    //     categories[0],
-    //     categories[1],
-    //     categories[2],
-    //     categories[3],
-    //     categories[4],
-    //     categories[5]
-    //   );
-    //   console.log(gas);
-    // }, 5000);
-  };
+  }
+  const handleSubmit = async () => {
+    var imghash
+    var vidhash
+     if (urli) {
+            try {
+
+                const formData = new FormData();
+                formData.append("file", urli);
+
+                const resFile = await axios({
+                    method: "post",
+                    url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+                    data: formData,
+                    headers: {
+                        'pinata_api_key': '6386f9cf09f47f201dd7',
+                        'pinata_secret_api_key': '25ba9c91298d402e25d8305f9455f23b94a2d20bf6c7c330a175ea243fbfa051',
+                        "Content-Type": "multipart/form-data"
+                    },
+                });
+
+                imghash = resFile.data.IpfsHash;
+             console.log(imghash); 
+ 
+            } catch (error) {
+                console.log("Error sending File to IPFS: ")
+                console.log(error)
+            }
+    }
+    if (urlv) {
+        try {
+          const formData = new FormData();
+          formData.append("file", urlv);
+
+          const resFile = await axios({
+            method: "post",
+            url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+            data: formData,
+            headers: {
+              pinata_api_key: "6386f9cf09f47f201dd7",
+              pinata_secret_api_key:
+                "25ba9c91298d402e25d8305f9455f23b94a2d20bf6c7c330a175ea243fbfa051",
+              "Content-Type": "multipart/form-data",
+            },
+          });
+
+          vidhash = resFile.data.IpfsHash;
+          console.log(vidhash)
+          //Take a look at your Pinata Pinned section, you will see a new file added to you list.
+        } catch (error) {
+          console.log("Error sending File to IPFS: ");
+          console.log(error);
+        }
+    }
+      const gas = await contract.uploadVideo(
+      imghash,
+      vidhash,
+      duration,
+      title,
+      description,
+      categories[0],
+      categories[1],
+      categories[2],
+      categories[3],
+      categories[4],
+      categories[5]
+       );
+       console.log(gas);
+  }
+//   const handleSubmit = async() => {
+//     //e.preventDefault()
+//     console.log("HANDLE SUBIT")
+//     console.log(urli)
+//     // console.log(uploadRes);
+//       if (urli) {
+//     const reader = new FileReader();
+
+//     reader.onloadend = async () => {
+//       const fileContent = reader.result;
+//       console.log("File content:", fileContent);
+
+//       // Now you can include the file content in your FormData or perform other actions
+
+//       const data = new FormData();
+//       data.append('files', urli);
+
+//        var config = {
+//         method: 'post',
+//         url: 'https://api.krypcore.com/api/v0/storagemanageripfs/storefile',
+//         headers: { 
+//           'Authorization': '3fc1ff34-12d1-4484-9b53-171420d24c9a', 
+//           'Instanceid': 'INS_ST_147_2024122', 
+//           ...data.getHeaders()
+//         },
+//         data : data
+// };
+// const response= await axios(config)
+// console.log(JSON.stringify(response.data));
+// reader.readAsText(urli);
+// }
+//     }
+
+//     // Read the file content as text, you can change to other formats if needed
+//   }
   return (
     <>
       <div className="bg-cyan-900 m-8 rounded-xl p-8">
@@ -289,9 +341,9 @@ const UploadVideo = () => {
                       type="file"
                       className=""
                       onChange={(e) => {
-                        console.log(e.target.files)
-                        setUrli(e.target.files);
-                        // console.log(urli)
+                        // setUrli(e.target.files[0])
+                        urli = e.target.files[0]
+                        console.log(urli)
                       }}
                     />
                   </label>
@@ -326,7 +378,8 @@ const UploadVideo = () => {
                       type="file"
                       className="hidden"
                       onChange={(e) => {
-                        setUrlv(e.target.files);
+                        // setUrlv(e.target.files[0]);
+                        urlv=e.target.files[0]
                       }}
                     />
                   </label>
@@ -334,8 +387,8 @@ const UploadVideo = () => {
                 <div className="m-4">
                   <button
                     className="bg-blue-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-l"
-                    
-                    onClick={()=>handleSubmit}
+                    type="button"
+                    onClick={handleSubmit}
                   >
                     Upload
                   </button>

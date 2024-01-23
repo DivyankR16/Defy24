@@ -61,7 +61,7 @@ const Sidebar = () => {
               !open && "scale-0"
             }`}
           >
-            Biscuit
+            Indie Stream
           </h1>
         </div>
         <ul className="pt-6">

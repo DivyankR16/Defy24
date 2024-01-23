@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/video/" element={<Videopage/>} />
+          <Route path="/video/:id" element={<Videopage/>} />
           {/* <Route path="/searchVideo" element={<SearchVideo />} />
           <Route path="/video" element={<Video />} />
           <Route path="/userprofile" element={<UserProfile />} />

@@ -93,7 +93,7 @@ const Videos = () => {
       <div className="mx-auto grid max-w-screen-3xl gap-10 md:grid-cols-3">
         {cardDataArray.map((cardData, index) => (
           
-          <Link key={ index} to={`/video/`}>
+          <Link key={ index} to={`/video/abc`}>
           <Card cardInfo={cardData} />
           </Link>
         ))}

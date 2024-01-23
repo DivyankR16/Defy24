@@ -1,5 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 const UploadVideo = () => {
+  const [title, setTitle] = useState("");
+  const [duration, setDuration] = useState("");
+  const [description, setDescription] = useState("");
+  const [urlv, setUrlv] = useState("");
+  const [urli, setUrli] = useState("");
+  const [categories, setCategories] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const updateValueAtIndex = (index, newValue) => {
+    // Creating a copy of the array using spread (...) operator
+    const newArray = [...categories];
+
+    // Updating the value at the specified index
+    newArray[index] = newValue;
+
+    // Updating the state with the new array
+    setCategories(newArray);
+  };
+  const handleSubmit = async () => {
+    // console.log(uploadRes);
+    uploadRes = await lighthouse.upload(
+      urlv,
+      "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
+    );
+    uploadResthumb = await lighthouse.upload(
+      urli,
+      "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
+    );
+    console.log(uploadRes);
+    console.log(uploadResthumb);
+    //
+    // console.log(uploadResthumb);
+    setTimeout(async () => {
+      const gas = await contract.uploadVideo(
+        uploadRes.data.Hash,
+        uploadResthumb.data.Hash,
+        duration,
+        title,
+        description,
+        categories[0],
+        categories[1],
+        categories[2],
+        categories[3],
+        categories[4],
+        categories[5]
+      );
+      console.log(gas);
+    }, 5000);
+  };
   return (
     <>
       <div className="bg-cyan-900 m-8 rounded-xl p-8">
@@ -17,6 +71,10 @@ const UploadVideo = () => {
                 id="grid-first-name"
                 type="text"
                 placeholder="Jane"
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
               />
             </div>
             <div className="w-full md:w-1/2 px-3">
@@ -31,6 +89,10 @@ const UploadVideo = () => {
                 id="grid-last-name"
                 type="text"
                 placeholder="Doe"
+                value={duration}
+                onChange={(e) => {
+                  setDuration(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -47,6 +109,10 @@ const UploadVideo = () => {
                 id="grid-description"
                 type="text"
                 placeholder="Write Description...."
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -124,6 +190,9 @@ const UploadVideo = () => {
                         name="push-notifications"
                         type="checkbox"
                         className="h-4 w-4 border-gray-300 text-cyan-600 focus:ring-cyan-600"
+                        onClick={() => {
+                          updateValueAtIndex(0, true);
+                        }}
                       />
                       <label
                         htmlFor="push-everything"
@@ -138,6 +207,9 @@ const UploadVideo = () => {
                         name="push-notifications"
                         type="checkbox"
                         className="h-4 w-4 border-gray-300 text-cyan-600 focus:ring-cyan-600"
+                        onClick={() => {
+                          updateValueAtIndex(1, true);
+                        }}
                       />
                       <label
                         htmlFor="push-email"
@@ -152,6 +224,9 @@ const UploadVideo = () => {
                         name="push-notifications"
                         type="checkbox"
                         className="h-4 w-4 border-gray-300 text-cyan-600 focus:ring-cyan-600"
+                        onClick={() => {
+                          updateValueAtIndex(2, true);
+                        }}
                       />
                       <label
                         htmlFor="push-nothing"
@@ -168,6 +243,9 @@ const UploadVideo = () => {
                         name="push-notifications"
                         type="checkbox"
                         className="h-4 w-4 border-gray-300 text-cyan-600 focus:ring-cyan-600"
+                        onClick={() => {
+                          updateValueAtIndex(3, true);
+                        }}
                       />
                       <label
                         htmlFor="push-everything"
@@ -182,6 +260,9 @@ const UploadVideo = () => {
                         name="push-notifications"
                         type="checkbox"
                         className="h-4 w-4 border-gray-300 text-cyan-600 focus:ring-cyan-600"
+                        onClick={() => {
+                          updateValueAtIndex(4, true);
+                        }}
                       />
                       <label
                         htmlFor="push-email"
@@ -196,6 +277,9 @@ const UploadVideo = () => {
                         name="push-notifications"
                         type="checkbox"
                         className="h-4 w-4 border-gray-300 text-cyan-600 focus:ring-cyan-600"
+                        onClick={() => {
+                          updateValueAtIndex(5, true);
+                        }}
                       />
                       <label
                         htmlFor="push-nothing"
@@ -238,7 +322,14 @@ const UploadVideo = () => {
                         SVG, PNG, JPG or GIF
                       </p>
                     </div>
-                    <input id="dropzone-file" type="file" className="hidden" />
+                    <input
+                      id="dropzone-file"
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => {
+                        setUrli(e.target.files);
+                      }}
+                    />
                   </label>
                 </div>
                 <div className="w-full md:w-1/2 px-3">
@@ -266,7 +357,14 @@ const UploadVideo = () => {
                         mp4 or videos
                       </p>
                     </div>
-                    <input id="dropzone-file" type="file" className="hidden" />
+                    <input
+                      id="dropzone-file"
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => {
+                        setUrlv(e.target.files);
+                      }}
+                    />
                   </label>
                 </div>
                 <div className="m-4">

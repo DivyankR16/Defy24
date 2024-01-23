@@ -4,8 +4,7 @@ import Navbar from '../components/LandingComponents/Navbar';
 import Footer from '../components/LandingComponents/Footer';
 import ReactPlayer from 'react-player'
 const Videopage = () => {
-//   const id=useParams();
-//   console.log(id);
+  const { id } =useParams();
     return (
     <div className='bg-gray-950'>
     <Navbar />

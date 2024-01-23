@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import axios from 'axios'
+import FormData from 'form-data'
+import fs from 'fs'
 const UploadVideo = () => {
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
@@ -23,36 +26,57 @@ const UploadVideo = () => {
     // Updating the state with the new array
     setCategories(newArray);
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    //e.preventDefault()
+    console.log("HANDLE SUBIT")
     // console.log(uploadRes);
-    uploadRes = await lighthouse.upload(
-      urlv,
-      "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
-    );
-    uploadResthumb = await lighthouse.upload(
-      urli,
-      "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
-    );
-    console.log(uploadRes);
-    console.log(uploadResthumb);
+    var data = new FormData()
+    data.append('files', fs.createReadStream(urli))
+    var config = {
+      method: "post",
+      url: "https://api.krypcore.com/api/v0/storagemanageripfs/storefile",
+      headers: {
+        Authorization: "3fc1ff34-12d1-4484-9b53-171420d24c9a",
+        Instanceid: "INS_NC_172_2024122",
+        ...data.getHeaders(),
+      },
+      data: data,
+    };
+    // uploadRes = await lighthouse.upload(
+    //   urlv,
+    //   "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
+    // );
+    // uploadResthumb = await lighthouse.upload(
+    //   urli,
+    //   "3ba4e579.560eb4b7fbd148a89f40e2c4357acfec"
+    // );
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    // console.log(uploadRes);
+    // console.log(uploadResthumb);
     //
     // console.log(uploadResthumb);
-    setTimeout(async () => {
-      const gas = await contract.uploadVideo(
-        uploadRes.data.Hash,
-        uploadResthumb.data.Hash,
-        duration,
-        title,
-        description,
-        categories[0],
-        categories[1],
-        categories[2],
-        categories[3],
-        categories[4],
-        categories[5]
-      );
-      console.log(gas);
-    }, 5000);
+    // setTimeout(async () => {
+    //   const gas = await contract.uploadVideo(
+    //     uploadRes.data.Hash,
+    //     uploadResthumb.data.Hash,
+    //     duration,
+    //     title,
+    //     description,
+    //     categories[0],
+    //     categories[1],
+    //     categories[2],
+    //     categories[3],
+    //     categories[4],
+    //     categories[5]
+    //   );
+    //   console.log(gas);
+    // }, 5000);
   };
   return (
     <>
@@ -116,63 +140,6 @@ const UploadVideo = () => {
               />
             </div>
           </div>
-          {/* <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                htmlFor="grid-city"
-              >
-                City
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-cyan-900 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="text"
-                placeholder="Albuquerque"
-              />
-            </div>
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                htmlFor="grid-state"
-              >
-                State
-              </label>
-              <div className="relative">
-                <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-white py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-state"
-                >
-                  <option>New Mexico</option>
-                  <option>Missouri</option>
-                  <option>Texas</option>
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                htmlFor="grid-zip"
-              >
-                Zip
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-cyan-900 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-zip"
-                type="text"
-                placeholder="90210"
-              />
-            </div>
-          </div> */}
           <div className="flex flex-wrap -mx-3 mb-6 h-52">
             <div className="w-full px-3 flex justify-start">
               <fieldset>
@@ -292,11 +259,6 @@ const UploadVideo = () => {
                 </div>
               </fieldset>
               <div className="flex flex-wrap -mx-3 mb-6">
-                {/* <div className="flex flex-wrap -mx-3 mb-6">
-                  <div className="w-full px-3 mb-6 md:mb-0">
-                    <div className="flex items-center justify-center w-full h-1/2"> */}
-                {/* <div className="m-8">
-                  <div className="flex flex-wrap -mx-3 mb-6"> */}
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <h2 className="text-xl font-semibold mb-4 text-white">
                     Upload Image
@@ -325,9 +287,11 @@ const UploadVideo = () => {
                     <input
                       id="dropzone-file"
                       type="file"
-                      className="hidden"
+                      className=""
                       onChange={(e) => {
+                        console.log(e.target.files)
                         setUrli(e.target.files);
+                        // console.log(urli)
                       }}
                     />
                   </label>
@@ -370,7 +334,8 @@ const UploadVideo = () => {
                 <div className="m-4">
                   <button
                     className="bg-blue-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-l"
-                    type="submit"
+                    
+                    onClick={()=>handleSubmit}
                   >
                     Upload
                   </button>

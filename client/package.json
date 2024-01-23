@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.1.1",
     "@reduxjs/toolkit": "^2.0.1",
     "@syncfusion/ej2-react-popups": "^24.1.46",
+    "axios": "^1.6.5",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

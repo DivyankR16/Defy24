@@ -1,5 +1,6 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Card from './Card';
+import { useSelector } from "react-redux";
 import ScrollableFeed from 'react-scrollable-feed'
 import SingleUserImage from "../../assets/single_user.png"
 import PartnershipImage from "../../assets/partnership.png";
@@ -81,8 +82,8 @@ const cardDataArray = [
       "20 GB"
     ),
   ];
-const Videos = () => {
-  
+const Videos = ({videos}) => {
+  console.log(videos)
   return (
     <>
     <div className='w-full bg-black  flex justify-center px-4 py-6'>
@@ -91,10 +92,9 @@ const Videos = () => {
 
     <div className="w-full bg-black px-[5rem] py-10">
       <div className="mx-auto grid max-w-screen-3xl gap-10 md:grid-cols-3">
-        {cardDataArray.map((cardData, index) => (
-          
-          <Link key={ index} to={`/video/abc`}>
-          <Card cardInfo={cardData} />
+        {videos.map((cardData, index) => (
+          <Link key={ index} to={`/video/${cardData.VideoURI}`}>
+          <Card cardInfo={cardData} index={index} />
           </Link>
         ))}
       </div>

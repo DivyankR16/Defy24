@@ -1,6 +1,31 @@
-import React from "react";
-
+import React, {useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom'
 const Profile = () => {
+  const navigate=useNavigate()
+  const contract = useSelector((state) => state.user.contractInstance)
+  const address = useSelector((state) => state.user.userAddress)
+  console.log(address)
+  const [curname, setCurname] = useState();
+  useEffect(() => {
+    const check = async () => {
+      const curuser = await contract.viewUser(address)
+      // console.log(curuser)
+      setCurname(curuser.name)
+    }
+    check()
+  }, [contract])
+  
+  const [name, setName] = useState();
+  const handleRegister = async() => {
+    try {
+      await contract.registerUSer(name)
+      navigate('/dashboard/profile')
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
   return (
     <>
       {/* <div className="bg-gray-100"> */}
@@ -13,7 +38,7 @@ const Profile = () => {
                   src="https://randomuser.me/api/portraits/men/94.jpg"
                   className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                 ></img>
-                <h1 className="text-xl font-bold">Akansh Vaibhav</h1>
+                <h1 className="text-xl font-bold">{name}</h1>
                 <p className="">Software Developer</p>
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
                   <butoon className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded hover:cursor-pointer">
@@ -139,9 +164,43 @@ const Profile = () => {
                   </svg>
                 </a>
               </div>
-
-              <h2 className="text-xl font-bold mt-6 mb-4">Experience</h2>
-              <div className="mb-6">
+              {curname === '' ? (
+                <>
+                  <h2 className="text-xl font-bold mt-6 mb-4">Register</h2>
+                  <form>
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                      <label
+                        className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+                        htmlFor="grid-first-name"
+                      >
+                        Enter Name
+                      </label>
+                      <input
+                        className="appearance-none block w-full bg-gray-200 text-cyan-900 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-first-name"
+                        type="text"
+                        placeholder="XYZ"
+                        value={name}
+                        onChange={(e) => {
+                          setName(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="bg-cyan-950 p-3 rounded-2xl"
+                      onClick={handleRegister}
+                    >
+                      Register
+                    </button>
+                  </form>
+                </>
+              ) : (
+                  <>
+                    <h2 className="font-bold text-white">Already Registered</h2>
+                  </>
+              )}
+              {/* <div className="mb-6">
                 <div className="flex justify-between flex-wrap gap-2 w-full">
                   <span className=" font-bold">Web Developer</span>
                   <p>
@@ -182,7 +241,7 @@ const Profile = () => {
                   finibus est vitae tortor ullamcorper, ut vestibulum velit
                   convallis. Aenean posuere risus non velit egestas suscipit.
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-const userLocal = JSON.parse(localStorage.getItem("user")) || "";
+const userLocal = localStorage.getItem("user") || "";
 const contractInstanceLocal =
-  JSON.parse(localStorage.getItem("contractInstance")) || "";
+  localStorage.getItem("contractInstance") || "";
 const balanceLocal = JSON.parse(localStorage.getItem("balance")) || "";
 // const contractLocal = JSON.parse(localStorage.getItem("contract")) || "";
-const providerLocal = JSON.parse(localStorage.getItem("provider")) || {};
-const signerLocal = JSON.parse(localStorage.getItem("signer")) || {};
+const providerLocal =localStorage.getItem("provider") || {};
+const signerLocal = localStorage.getItem("signer") || {};
 const initialState = {
   userAddress: userLocal,
   contractInstance: contractInstanceLocal,
@@ -20,29 +20,26 @@ const userInstance = createSlice({
   reducers: {
     setUserAddress: (state, action) => {
       state.userAddress = action.payload;
-      localStorage.setItem("user", JSON.stringify(state.userAddress));
+      localStorage.setItem("user", state.userAddress);
     },
     setContractInstance: (state, action) => {
       state.contractInstance = action.payload;
       localStorage.setItem(
         "contractInstance",
-        JSON.stringify(state.contractInstance)
+      state.contractInstance
       );
     },
     setBalance: (state, action) => {
       state.balance = action.payload;
       localStorage.setItem("balance", JSON.stringify(state.balance));
     },
-    setContract: (state, action) => {
-      state.contract = action.payload;
-    },
     setSigner: (state, action) => {
       state.signer = action.payload;
-      localStorage.setItem("signer", JSON.stringify(state.signer));
+      localStorage.setItem("signer", state.signer);
     },
     setProvider: (state, action) => {
       state.provider = action.payload;
-      localStorage.setItem("provider", JSON.stringify(state.provider));
+      localStorage.setItem("provider", state.provider);
     },
   },
 });

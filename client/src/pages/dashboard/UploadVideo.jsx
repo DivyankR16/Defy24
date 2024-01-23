@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from 'axios'
-import {  useSelector } from "react-redux";
-var urli = ""
-var urlv=""
+import axios from "axios";
+import { useSelector } from "react-redux";
+var urli = "";
+var urlv = "";
 const UploadVideo = () => {
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
@@ -15,8 +15,8 @@ const UploadVideo = () => {
     false,
     false,
   ]);
-  const contract = useSelector((state) => state.user.contractInstance)
-  console.log(contract)
+  const contract = useSelector((state) => state.user.contractInstance);
+  console.log(contract);
   const updateValueAtIndex = (index, newValue) => {
     // Creating a copy of the array using spread (...) operator
     const newArray = [...categories];
@@ -26,63 +26,82 @@ const UploadVideo = () => {
 
     // Updating the state with the new array
     setCategories(newArray);
-  }
-  const handleSubmit = async () => {
-    var imghash
-    var vidhash
-     if (urli) {
-            try {
+  };
+  const handleSubmit1 = async () => {
+    // const fileStream = await fs.readFileSync("./krypc.jpeg");
+    var imghash;
+    var vidhash;
+    if (urli) {
+      const fileReader = new FileReader();
 
-                const formData = new FormData();
-                formData.append("file", urli);
+      fileReader.onload = async () => {
+        // 'fileReader.result' contains the contents of the file as ArrayBuffer
+        const fileContents = fileReader.result;
 
-                const resFile = await axios({
-                    method: "post",
-                    url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-                    data: formData,
-                    headers: {
-                        'pinata_api_key': '6386f9cf09f47f201dd7',
-                        'pinata_secret_api_key': '25ba9c91298d402e25d8305f9455f23b94a2d20bf6c7c330a175ea243fbfa051',
-                        "Content-Type": "multipart/form-data"
-                    },
-                });
+        // Now you can use 'fileContents' as needed
+        console.log(fileContents);
 
-                imghash = resFile.data.IpfsHash;
-             console.log(imghash); 
- 
-            } catch (error) {
-                console.log("Error sending File to IPFS: ")
-                console.log(error)
-            }
-    }
-    if (urlv) {
+        // Create a Blob from the ArrayBuffer
+        const fileBlob = new Blob([fileContents], { type: urli.type });
+        console.log(urli);
+        // Set the Blob to state or perform other actions
         try {
+          console.log("In upload file API");
+          const headers = {
+            "Content-Type": "multipart/form-data",
+            Authorization: "3fc1ff34-12d1-4484-9b53-171420d24c9a",
+            Instanceid: "INS_ST_147_2024122",
+          };
+          const url =
+            "https://api.krypcore.com/api/v0/storagemanageripfs/storefile";
           const formData = new FormData();
-          formData.append("file", urlv);
-
-          const resFile = await axios({
-            method: "post",
-            url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-            data: formData,
-            headers: {
-              pinata_api_key: "6386f9cf09f47f201dd7",
-              pinata_secret_api_key:
-                "25ba9c91298d402e25d8305f9455f23b94a2d20bf6c7c330a175ea243fbfa051",
-              "Content-Type": "multipart/form-data",
-            },
-          });
-
-          vidhash = resFile.data.IpfsHash;
-          console.log(vidhash)
-          //Take a look at your Pinata Pinned section, you will see a new file added to you list.
+          formData.append("files", fileBlob, urli.name);
+          const response = await axios.post(url, formData, { headers });
+          imghash = response.data;
         } catch (error) {
-          console.log("Error sending File to IPFS: ");
           console.log(error);
         }
+      };
+
+      fileReader.readAsArrayBuffer(urli); // Use readAsText for text files
     }
-      const gas = await contract.uploadVideo(
-      imghash,
-      vidhash,
+    if (urlv) {
+      const fileReader = new FileReader();
+
+      fileReader.onload = async () => {
+        // 'fileReader.result' contains the contents of the file as ArrayBuffer
+        const fileContents = fileReader.result;
+
+        // Now you can use 'fileContents' as needed
+        console.log(fileContents);
+
+        // Create a Blob from the ArrayBuffer
+        const fileBlob = new Blob([fileContents], { type: urli.type });
+        console.log(urli);
+        // Set the Blob to state or perform other actions
+        try {
+          console.log("In upload file API");
+          const headers = {
+            "Content-Type": "multipart/form-data",
+            Authorization: "3fc1ff34-12d1-4484-9b53-171420d24c9a",
+            Instanceid: "INS_ST_147_2024122",
+          };
+          const url =
+            "https://api.krypcore.com/api/v0/storagemanageripfs/storefile";
+          const formData = new FormData();
+          formData.append("files", fileBlob, urli.name);
+          const response = await axios.post(url, formData, { headers });
+          vidhash = response.data;
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fileReader.readAsArrayBuffer(urli); // Use readAsText for text files
+    }
+        const gas = await contract.uploadVideo(
+      imghash.Data,
+      vidhash.Data,
       duration,
       title,
       description,
@@ -92,44 +111,76 @@ const UploadVideo = () => {
       categories[3],
       categories[4],
       categories[5]
-       );
-       console.log(gas);
-  }
-//   const handleSubmit = async() => {
-//     //e.preventDefault()
-//     console.log("HANDLE SUBIT")
-//     console.log(urli)
-//     // console.log(uploadRes);
-//       if (urli) {
-//     const reader = new FileReader();
+    );
+    console.log(gas);
+  };
+  // const handleSubmit = async () => {
+  //   var imghash;
+  //   var vidhash;
+  //   if (urli) {
+  //     try {
+  //       const formData = new FormData();
+  //       formData.append("file", urli);
 
-//     reader.onloadend = async () => {
-//       const fileContent = reader.result;
-//       console.log("File content:", fileContent);
+  //       const resFile = await axios({
+  //         method: "post",
+  //         url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+  //         data: formData,
+  //         headers: {
+  //           pinata_api_key: "6386f9cf09f47f201dd7",
+  //           pinata_secret_api_key:
+  //             "25ba9c91298d402e25d8305f9455f23b94a2d20bf6c7c330a175ea243fbfa051",
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       });
 
-//       // Now you can include the file content in your FormData or perform other actions
+  //       imghash = resFile.data.IpfsHash;
+  //       console.log(imghash);
+  //     } catch (error) {
+  //       console.log("Error sending File to IPFS: ");
+  //       console.log(error);
+  //     }
+  //   }
+  //   if (urlv) {
+  //     try {
+  //       const formData = new FormData();
+  //       formData.append("file", urlv);
 
-//       const data = new FormData();
-//       data.append('files', urli);
+  //       const resFile = await axios({
+  //         method: "post",
+  //         url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+  //         data: formData,
+  //         headers: {
+  //           pinata_api_key: "6386f9cf09f47f201dd7",
+  //           pinata_secret_api_key:
+  //             "25ba9c91298d402e25d8305f9455f23b94a2d20bf6c7c330a175ea243fbfa051",
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       });
 
-//        var config = {
-//         method: 'post',
-//         url: 'https://api.krypcore.com/api/v0/storagemanageripfs/storefile',
-//         headers: { 
-//           'Authorization': '3fc1ff34-12d1-4484-9b53-171420d24c9a', 
-//           'Instanceid': 'INS_ST_147_2024122', 
-//           ...data.getHeaders()
-//         },
-//         data : data
-// };
-// const response= await axios(config)
-// console.log(JSON.stringify(response.data));
-// reader.readAsText(urli);
-// }
-//     }
-
-//     // Read the file content as text, you can change to other formats if needed
-//   }
+  //       vidhash = resFile.data.IpfsHash;
+  //       console.log(vidhash);
+  //       //Take a look at your Pinata Pinned section, you will see a new file added to you list.
+  //     } catch (error) {
+  //       console.log("Error sending File to IPFS: ");
+  //       console.log(error);
+  //     }
+  //   }
+    // const gas = await contract.uploadVideo(
+    //   imghash,
+    //   vidhash,
+    //   duration,
+    //   title,
+    //   description,
+    //   categories[0],
+    //   categories[1],
+    //   categories[2],
+    //   categories[3],
+    //   categories[4],
+    //   categories[5]
+    // );
+    // console.log(gas);
+  // };
   return (
     <>
       <div className="bg-cyan-900 m-8 rounded-xl p-8">
@@ -342,8 +393,8 @@ const UploadVideo = () => {
                       className=""
                       onChange={(e) => {
                         // setUrli(e.target.files[0])
-                        urli = e.target.files[0]
-                        console.log(urli)
+                        urli = e.target.files[0];
+                        console.log(urli);
                       }}
                     />
                   </label>
@@ -379,7 +430,7 @@ const UploadVideo = () => {
                       className="hidden"
                       onChange={(e) => {
                         // setUrlv(e.target.files[0]);
-                        urlv=e.target.files[0]
+                        urlv = e.target.files[0];
                       }}
                     />
                   </label>
@@ -388,7 +439,7 @@ const UploadVideo = () => {
                   <button
                     className="bg-blue-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-l"
                     type="button"
-                    onClick={handleSubmit}
+                    onClick={handleSubmit1}
                   >
                     Upload
                   </button>

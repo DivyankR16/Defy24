@@ -9,7 +9,7 @@ const Hero = () => {
         Decentralising Entertainment
       </p>
       <h1 className="text-5xl font-bold sm:text-6xl md:text-7xl">
-        Grow with data.
+        Groove the Indie Wayy
       </h1>
       <div className="mt-4 flex text-xl font-bold sm:text-3xl md:text-4xl">
         <Typewriter
@@ -22,8 +22,7 @@ const Hero = () => {
 
       </div>
       <p className=" mt-4 w-[90vw] text-xl font-bold text-gray-400 md:text-2xl">
-        Monitor your data analytics to increase revenue for BTB, BTC & SASS
-        platforms.
+           Explore the underdog of Entertainment!!
       </p>
       <div className="flex justify-center items-center">
       <input type="text" className="my-[3rem] bg-white py-3 px-[1.5rem] md:px-[7rem] sm:px-[4rem] font-semibold text-gray-900 text-3xl text-center rounded-l-full border-none " placeholder="Search Here"></input>

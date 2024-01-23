@@ -92,13 +92,26 @@ const Navbar = () => {
     <div className="mx-auto flex h-24 max-w-screen-xl items-center justify-between px-4 text-white">
       <ReactLogo type="spin" size={48} />
       <div className="hidden md:flex items-center">
-         <Link className="header-link mx-4">Home</Link>
-         <Link className="header-link mx-4">About Us</Link>
-         
-        {address==="" && balance===""? (<button className="bg-white text-gray-800 px-6 py-2 rounded-full" onClick={connectWallet}>Connect Wallet
-        </ button>):(<><Link className="header-link mx-4">Dashboard</Link>
-            <p className="text-gray-900 font-semibold  bg-slate-300 px-6 py-2 rounded-full">Address: <span>{ address}</span> <span className="font-extrabold text-2xl">&nbsp;&nbsp;||</span>&nbsp;&nbsp; {balance} Matic</p></>)}
+        <Link className="header-link mx-4">Home</Link>
+        <Link className="header-link mx-4">About Us</Link>
 
+        {address === "" && balance === "" ? (
+          <button
+            className="bg-white text-gray-800 px-6 py-2 rounded-full"
+            onClick={connectWallet}
+          >
+            Connect Wallet
+          </button>
+        ) : (
+          <>
+            <Link className="header-link mx-4">Dashboard</Link>
+            <p className="text-gray-900 font-semibold  bg-slate-300 px-6 py-2 rounded-full">
+              Address: <span>{address.slice(0,6)}</span>{" "}
+              <span className="font-extrabold text-2xl">&nbsp;&nbsp;||</span>
+              &nbsp;&nbsp; {balance.slice(0,4)} Matic
+            </p>
+          </>
+        )}
       </div>
 
       <div onClick={handleNav} className="block md:hidden">
@@ -115,13 +128,27 @@ const Navbar = () => {
         <h1 className="m-4 w-full text-3xl font-bold text-emerald-400">
           Navbar
         </h1>
-        <ul className="flex-col  " >
-         <Link className="header-link mx-4 my-2 block">Home</Link>
-         <Link className="header-link mx-4  my-2 block">About Us</Link>
-         
-        {address==="" && balance===""?(<button  className="bg-white text-gray-800 px-6 py-2 rounded-full" onClick={connectWallet}>Connect Wallet
-        </ button>):(<><Link className="header-link mx-4 block my-2">Dashboard</Link>
-              <p className="text-gray-900 font-semibold  bg-slate-300 px-6 py-2 rounded-full">Address: <span>{address}</span> <span className="font-extrabold text-2xl">&nbsp;&nbsp;||</span>&nbsp;&nbsp; {balance } Matic</p></>)}
+        <ul className="flex-col  ">
+          <Link className="header-link mx-4 my-2 block">Home</Link>
+          <Link className="header-link mx-4  my-2 block">About Us</Link>
+
+          {address === "" && balance === "" ? (
+            <button
+              className="bg-white text-gray-800 px-6 py-2 rounded-full"
+              onClick={connectWallet}
+            >
+              Connect Wallet
+            </button>
+          ) : (
+            <>
+              <Link className="header-link mx-4 block my-2">Dashboard</Link>
+              <p className="text-gray-900 font-semibold  bg-slate-300 px-6 py-2 rounded-full">
+                Address: <span>{address.slice(0,6)}</span>{" "}
+                <span className="font-extrabold text-2xl">&nbsp;&nbsp;||</span>
+                &nbsp;&nbsp; {balance.slice(0, 4)} Matic
+              </p>
+            </>
+          )}
         </ul>
       </div>
     </div>

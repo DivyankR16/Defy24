@@ -26,8 +26,8 @@ const Hero = () => {
         platforms.
       </p>
       <div className="flex justify-center items-center">
-      <input type="text" className="my-[3rem] bg-white py-5 px-[15rem] font-semibold text-gray-900 text-3xl text-center rounded-l-full border-none " placeholder="Search Here"></input>
-        <button className="rounded-e-full text-3xl border-none py-5 px-[3rem] bg-emerald-400 text-white" >Search</button>
+      <input type="text" className="my-[3rem] bg-white py-3 px-[1.5rem] md:px-[7rem] sm:px-[4rem] font-semibold text-gray-900 text-3xl text-center rounded-l-full border-none " placeholder="Search Here"></input>
+        <button className="rounded-e-full text-3xl border-none py-3 px-[0.5rem] md:px-[3rem] sm:px-[1rem] bg-emerald-400 text-white" >Search</button>
       </div>
        
         {/* <div class="relative w-full">

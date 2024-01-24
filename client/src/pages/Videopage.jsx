@@ -5,10 +5,19 @@ import Footer from '../components/LandingComponents/Footer';
 import { AiTwotoneLike } from 'react-icons/ai';
 import { AiFillDislike } from 'react-icons/ai';
 import ReactPlayer from 'react-player'
+import { useSelector } from 'react-redux';
 const Videopage = () => {
-  const { id } = useParams();
+  const contract=useSelector((state)=>state.user.contractInstance)
+  const { id,id1 } = useParams();
+  // console.log(id)
   const handlelike = () => { }
-  const handledislike=()=>{}
+  const handledislike = () => { }
+  const handlePlay = async () => {
+    const options = {
+      gasLimit: 3000000, // Set an appropriate gas limit for your transaction
+    };
+      await contract.viewUpdate(id1,options)
+  }
   // console.log(id);
   const urlll=`https://sapphire-brilliant-primate-963.mypinata.cloud/ipfs/${id}`
     return (
@@ -22,6 +31,7 @@ const Videopage = () => {
               width="100%"
               height="100%"
               controls={true}
+              onPlay={handlePlay}
             />
           </div>
           <div className="mt-3 p-3 rounded-xl bg-gray-1000">

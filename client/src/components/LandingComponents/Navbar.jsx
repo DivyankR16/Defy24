@@ -146,7 +146,6 @@ const Navbar = () => {
         {address === "" && balance === "" ? (
           <button
             className="bg-white text-gray-800 px-6 py-2 rounded-full"
-            onClick={connectWallet}
           >
             Connect Wallet
           </button>
@@ -185,7 +184,6 @@ const Navbar = () => {
           {address === "" && balance === "" ? (
             <button
               className="bg-white text-gray-800 px-6 py-2 rounded-full"
-              onClick={connectWallet}
             >
               Connect Wallet
             </button>

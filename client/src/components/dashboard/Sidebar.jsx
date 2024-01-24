@@ -32,7 +32,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="flex bg-cyan-950 z-10">
+    <div className="flex bg-gray-950 z-10">
       <div
         className={` ${
           open ? "w-72" : "w-20 "
@@ -61,16 +61,16 @@ const Sidebar = () => {
               !open && "scale-0"
             }`}
           >
-            Indie Stream
+            Your Dashboard
           </h1>
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 hover:bg-blue-600
+              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-200  font-semibold text-sm items-center gap-x-4 hover:bg-emerald-600
               ${Menu.gap ? "mt-9" : "mt-2"} ${
-                Menu.title.toLowerCase() === activeMenu && "bg-blue-600"
+                Menu.title.toLowerCase() === activeMenu && "bg-emerald-700"
               } `}
               onClick={() => handleMenuClick(index, Menu.title)}
             >

@@ -10,6 +10,7 @@ const Landing = () => {
   const contract = useSelector((state) => state.user.contractInstance);
   console.log(contract)
   const [videos, setVideos] = useState([]);
+  console.log(videos);
   useEffect(() => {
     const allvide = async () => {
       try {

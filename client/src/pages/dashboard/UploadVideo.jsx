@@ -186,7 +186,7 @@ const UploadVideo = () => {
                 className="appearance-none block w-full bg-gray-200 text-cyan-900 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
-                placeholder="Jane"
+                placeholder="Your Title"
                 value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
@@ -204,7 +204,7 @@ const UploadVideo = () => {
                 className="appearance-none block w-full bg-gray-200 text-cyan-900 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-last-name"
                 type="text"
-                placeholder="Doe"
+                placeholder="In Seconds"
                 value={duration}
                 onChange={(e) => {
                   setDuration(e.target.value);
@@ -353,7 +353,7 @@ const UploadVideo = () => {
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <h2 className="text-xl font-semibold mb-4 text-white">
-                    Upload Image
+                    Upload Video
                   </h2>
                   <label
                     htmlFor="dropzone-file"
@@ -388,7 +388,7 @@ const UploadVideo = () => {
                     />
                   </label>
                 </div>
-                <div className="w-full md:w-1/2 px-3">
+                {/* <div className="w-full md:w-1/2 px-3">
                   <h2 className="text-xl font-semibold mb-4 text-white">
                     Upload Video
                   </h2>
@@ -404,7 +404,6 @@ const UploadVideo = () => {
                         fill="none"
                         viewBox="0 0 20 16"
                       >
-                        {/* <!-- SVG path data --> */}
                       </svg>
                       <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                         <span className="font-semibold">Click to upload</span>{" "}
@@ -418,12 +417,11 @@ const UploadVideo = () => {
                       type="file"
                       className="hidden"
                       onChange={(e) => {
-                        // setUrlv(e.target.files[0]);
                         urlv = e.target.files[0];
                       }}
                     />
                   </label>
-                </div>
+                </div> */}
                 <div className="m-4">
                   <button
                     className="bg-blue-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-l"

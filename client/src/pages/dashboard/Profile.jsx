@@ -38,7 +38,7 @@ const Profile = () => {
                   src="https://randomuser.me/api/portraits/men/94.jpg"
                   className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                 ></img>
-                <h1 className="text-xl font-bold">{name}</h1>
+                <h1 className="text-xl font-bold">{curname}</h1>
                 <p className="">Software Developer</p>
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
                   <butoon className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded hover:cursor-pointer">

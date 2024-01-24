@@ -43,7 +43,7 @@ function App() {
    const dispatch = useDispatch();
   useEffect(() => {
     const connectWallet = async () => {
-      const contractAddress = "0x34C3912Ea424360820A4c94cd08E3f1C7cb2e9BA";
+      const contractAddress = "0xb34bE2b5EE55BE38754a1C3CD226264588ab3Eb9";
       const contractABI = BiscuitFactory.abi;
       if (window.ethereum) {
         await window.ethereum.request({ method: "eth_requestAccounts" });

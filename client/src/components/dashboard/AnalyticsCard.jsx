@@ -3,7 +3,7 @@ import React from 'react'
 const AnalyticsCard = () => {
   return (
     <>
-        <div className="rounded-xl p-4 bg-cyan-900 shadow-2xl shadow-blue-200 pr-8">
+        <div className="rounded-xl p-4 bg-gray-900 shadow-2xl shadow-gray-600 pr-8">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
             <div className="md:col-span-3">
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-blue-100 p-2 md:p-4">

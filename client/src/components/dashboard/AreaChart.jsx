@@ -7,7 +7,7 @@ const AreaChart = () => {
       vAxis: { minValue: 0, titleTextStyle: { color: "#FFFFFF" } },
       chartArea: { width: "50%", height: "70%" },
       backgroundColor: {
-        fill: "#164E63", // Change the background color here
+        fill: "#111827", // Change the background color here
       },
       colors: ["#ffffff"],
       legend: { textStyle: { color: "#FFFFFF" } },

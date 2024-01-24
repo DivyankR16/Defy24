@@ -137,7 +137,7 @@ const Navbar = () => {
     <div className="mx-auto flex h-24 max-w-screen-xl items-center justify-between px-4 text-white">
       <Link to='/'>
         {" "}
-        <ReactLogo type="spin" size={48} />
+        <img src="/assets/ip.png" width='200px' height='200px'/>
       </Link>
       <div className="hidden md:flex items-center">
         <Link className="header-link mx-4">Home</Link>
